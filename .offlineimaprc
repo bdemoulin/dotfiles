@@ -1,0 +1,44 @@
+[general]
+accounts = Gmail
+fsync = False
+ui = ttyui
+
+[Account Gmail]
+localrepository = Gmail-local
+remoterepository = Gmail-remote
+status_backend = sqlite
+
+[Repository Gmail-local]
+type = Maildir
+localfolders = ~/.mail/Gmail/
+nametrans = lambda folder: {'inbox'       : 'INBOX',
+                            'drafts'      : '[Gmail]/Brouillons',
+                            'sent'        : '[Gmail]/Messages envoy&AOk-s',
+                            'archive'     : '[Gmail]/Tous les messages',
+                            }.get(folder, folder)
+sep = /
+
+[Repository Gmail-remote]
+type = Gmail
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remoteuser = 
+remotepass = passwd
+realdelete = no
+folderfilter = lambda folder: folder in [ 'INBOX',
+                                          '[Gmail]/Brouillons',
+                                          '[Gmail]/Messages envoy&AOk-s',
+                                        ]
+nametrans = lambda folder: {'INBOX'          : 'inbox',
+                            '[Gmail]/Brouillons' : 'drafts',
+                            '[Gmail]/Messages envoy&AOk-s'   : 'sent',
+                            '[Gmail]/Tous les messages' : 'archive',
+                            }.get(folder, folder)
+maxconnections = 2
+
+[mbnames]
+enable = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"

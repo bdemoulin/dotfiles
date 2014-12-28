@@ -1,0 +1,29 @@
+set editor=`echo \$EDITOR`
+set realname = "name"
+set from     = "mail_adress"
+source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
+
+set folder = ~/.mail/
+set spoolfile = "+gmail/inbox"
+set postponed = "+gmail/drafts"
+source ~/.mutt/mailboxes
+
+# Don't move read messages in other folder
+set move = no
+
+# No confirmation needed when moving message
+set confirmappend = no
+
+# Always plain text 
+alternative_order text/plain text/html
+
+auto_view text/html
+set mailcap_path = ~/.mailcap
+
+
+# How to sen mail
+
+set sendmail=/usr/bin/msmtp
+set include=yes
+set fast_reply
+set copy = no
